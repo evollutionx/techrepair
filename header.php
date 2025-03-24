@@ -67,6 +67,24 @@ $nivel_usuario = $_SESSION['user_tipo'] ?? 'tecnico'; // Padrão "tecnico" se n�
                             <li><a class="dropdown-item" href="cad_cliente.php"><i class="bi bi-plus-circle"></i> Cadastrar Cliente</a></li>
                         </ul>
                     </li>
+
+                    <!-- Menu Ordens de Serviço -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="menuOS" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-card-checklist"></i> Ordens de Serviço
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="lista_os.php"><i class="bi bi-list-ul"></i> Listagem de OS</a></li>
+                            <li><a class="dropdown-item" href="cad_os.php"><i class="bi bi-plus-circle"></i> Criar OS</a></li>
+                        </ul>
+                    </li>
+                <?php } ?>
+
+                <?php if ($nivel_usuario == 'tecnico') { ?>
+                    <!-- Menu Ordens de Serviço para Técnico -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="lista_os.php"><i class="bi bi-card-checklist"></i> Minhas OS</a>
+                    </li>
                 <?php } ?>
             </ul>
 
@@ -77,7 +95,7 @@ $nivel_usuario = $_SESSION['user_tipo'] ?? 'tecnico'; // Padrão "tecnico" se n�
             </ul>
         </div>
     </div>
-</nav>
+</nav> 
 
 <!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
