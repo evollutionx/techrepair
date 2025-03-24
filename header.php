@@ -4,10 +4,14 @@ require_once "classes/login.php";
 
 $login = new Login();
 
+// Verifica se o usuário está logado
 if (!$login->isLoggedIn()) {
     header("Location: login.php");
     exit();
 }
+
+// Obtém o tipo de usuário armazenado na sessão
+$nivel_usuario = $_SESSION['user_tipo'] ?? 'tecnico'; // Padrão "tecnico" se não definido
 ?>
 
 <!DOCTYPE html>
@@ -15,67 +19,56 @@ if (!$login->isLoggedIn()) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="includes/logo.png">  
     <title>TechRepair</title>
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="includes/logo.png"> 
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <style>
-        /* Personalização para o header */
-        .navbar {
-            background-color: #343a40;
-        }
-
-        .navbar-brand {
-            color: #fff;
-        }
-
-        .navbar-nav .nav-link {
-            color: #fff;
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #007bff;
-        }
-
-        /* Ajuste do logo no mobile */
-        .navbar-brand img {
-            width: 150px;
-        }
-    </style>
 </head>
 <body>
-    <!-- Menu de navegação -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">
-                <img src="includes/logo.png" alt="Logo TechRepair" style="width: 50px;">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="dashboard.php">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="profile.php">Perfil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="logout.php">Sair</a>
-                    </li>
-                </ul>
-            </div>
+
+<!-- Navbar Responsiva -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="dashboard.php">
+        <img src="includes/logo.png" alt="logo TechRepair" class="img-fluid mb-3" style="max-width: 50px;"> TechRepair
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="dashboard.php"><i class="bi bi-house-door"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="perfil.php"><i class="bi bi-person"></i> Meu Perfil</a>
+                </li>
+
+                <?php if ($nivel_usuario == 'admin') { ?>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="menuPecas" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-box-seam"></i> Peças
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="lista_pecas.php"><i class="bi bi-list-ul"></i> Listagem de Peças</a></li>
+                        <li><a class="dropdown-item" href="cad_pecas.php"><i class="bi bi-plus-circle"></i> Cadastrar Peça</a></li>
+                    </ul>
+                </li>
+                <?php } ?>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-danger" href="logout.php"><i class="bi bi-box-arrow-right"></i> Sair</a>
+                </li>
+            </ul>
         </div>
-    </nav>
-
-    <!-- Conteúdo principal -->
-    <div class="container mt-4">
-        <h1 class="text-center">Bem-vindo, <?php echo $_SESSION['user_name']; ?>!</h1>
     </div>
+</nav>
 
-    <!-- Bootstrap 5 JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

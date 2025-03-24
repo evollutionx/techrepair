@@ -10,7 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     if ($login->loginUser($email, $password)) {
-        header("Location: dashboard.php"); // Página após login bem-sucedido
+        // Redireciona para o dashboard após login bem-sucedido
+        header("Location: dashboard.php");
         exit();
     } else {
         $error = "E-mail ou senha inválidos!";

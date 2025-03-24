@@ -18,7 +18,7 @@ $lista = $pecas->listarPecas();
                 <th>Preço</th>
                 <th>Quantidade</th>
                 <th>Fornecedor</th>
-                <?php if ($_SESSION['user_nivel'] == 'admin') { ?>
+                <?php if ($_SESSION['user_tipo'] == 'admin') { ?>
                     <th>Ações</th>
                 <?php } ?>
             </tr>
