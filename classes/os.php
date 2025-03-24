@@ -98,6 +98,37 @@ public function cancelarOS($id_ordem, $motivo_cancelamento) {
     $stmt->bindParam(':id_ordem', $id_ordem);
     return $stmt->execute();
 }
+
+public function adicionarPecaOS($id_ordem, $id_peca, $quantidade_utilizada) {
+    // Iniciar transação para garantir a consistência
+    $this->conn->beginTransaction();
+    
+    try {
+        // 1. Inserir a peça utilizada na tabela pecas_utilizadas
+        $query = "INSERT INTO pecas_utilizadas (id_ordem, id_peca, quantidade_utilizada) 
+                  VALUES (:id_ordem, :id_peca, :quantidade_utilizada)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id_ordem', $id_ordem);
+        $stmt->bindParam(':id_peca', $id_peca);
+        $stmt->bindParam(':quantidade_utilizada', $quantidade_utilizada);
+        $stmt->execute();
+
+        // 2. Atualizar o estoque de peças na tabela pecas
+        $query = "UPDATE pecas SET quantidade = quantidade - :quantidade_utilizada WHERE id_peca = :id_peca";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':quantidade_utilizada', $quantidade_utilizada);
+        $stmt->bindParam(':id_peca', $id_peca);
+        $stmt->execute();
+
+        // Se tudo ocorreu bem, confirmar a transação
+        $this->conn->commit();
+        return true;
+    } catch (Exception $e) {
+        // Em caso de erro, desfazer a transação
+        $this->conn->rollBack();
+        return false;
+    }
+}
     
 
 }

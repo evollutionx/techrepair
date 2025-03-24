@@ -12,6 +12,7 @@ if (!$login->isLoggedIn()) {
 
 // Obtém o tipo de usuário armazenado na sessão
 $nivel_usuario = $_SESSION['user_tipo'] ?? 'tecnico'; // Padrão "tecnico" se não definido
+
 ?>
 
 <!DOCTYPE html>
