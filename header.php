@@ -31,7 +31,7 @@ $nivel_usuario = $_SESSION['user_tipo'] ?? 'tecnico'; // Padrão "tecnico" se n�
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="dashboard.php">
-        <img src="includes/logo.png" alt="logo TechRepair" class="img-fluid mb-3" style="max-width: 50px;"> TechRepair
+            <img src="includes/logo.png" alt="logo TechRepair" class="img-fluid mb-3" style="max-width: 50px;"> TechRepair
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -46,15 +46,27 @@ $nivel_usuario = $_SESSION['user_tipo'] ?? 'tecnico'; // Padrão "tecnico" se n�
                 </li>
 
                 <?php if ($nivel_usuario == 'admin') { ?>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="menuPecas" role="button" data-bs-toggle="dropdown">
-                        <i class="bi bi-box-seam"></i> Peças
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="lista_pecas.php"><i class="bi bi-list-ul"></i> Listagem de Peças</a></li>
-                        <li><a class="dropdown-item" href="cad_pecas.php"><i class="bi bi-plus-circle"></i> Cadastrar Peça</a></li>
-                    </ul>
-                </li>
+                    <!-- Menu Peças -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="menuPecas" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-box-seam"></i> Peças
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="lista_pecas.php"><i class="bi bi-list-ul"></i> Listagem de Peças</a></li>
+                            <li><a class="dropdown-item" href="cad_pecas.php"><i class="bi bi-plus-circle"></i> Cadastrar Peça</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Menu Clientes -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="menuClientes" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-badge"></i> Clientes
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="lista_clientes.php"><i class="bi bi-list-ul"></i> Listagem de Clientes</a></li>
+                            <li><a class="dropdown-item" href="cad_cliente.php"><i class="bi bi-plus-circle"></i> Cadastrar Cliente</a></li>
+                        </ul>
+                    </li>
                 <?php } ?>
             </ul>
 
